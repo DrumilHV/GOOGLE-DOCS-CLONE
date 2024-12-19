@@ -1,10 +1,14 @@
 "use client";
 import {
   BoldIcon,
+  ListTodoIcon,
   LucideIcon,
+  MessageSquarePlusIcon,
   PrinterIcon,
   Redo2Icon,
+  RemoveFormattingIcon,
   SpellCheck,
+  UnderlineIcon,
   Undo2Icon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -78,6 +82,31 @@ export default function Toolbar() {
         icon: BoldIcon,
         onClick: () => editor?.chain().focus().toggleBold().run(),
       },
+      {
+        label: "Underline",
+        icon: UnderlineIcon,
+        onClick: () => editor?.chain().focus().toggleUnderline().run(),
+      },
+    ],
+    [
+      {
+        label: "Comment",
+        icon: MessageSquarePlusIcon,
+        onClick: () => console.log("TODO: implement comment"),
+        isActive: false,
+      },
+      {
+        label: "List Todo",
+        icon: ListTodoIcon,
+        onClick: () => editor?.chain().focus().toggleTaskList().run(),
+        isActive: editor?.isActive("taskList"),
+      },
+      {
+        label: "Remove Formatting",
+        icon: RemoveFormattingIcon,
+        onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+        isActive: editor?.isActive("taskList"),
+      },
     ],
   ];
   return (
@@ -92,6 +121,17 @@ export default function Toolbar() {
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {/*TODO : FONT SIZE*/}
       {sections[1].map((item) => (
+        <ToolbarButton key={item.label} {...item} />
+      ))}
+      {/* TODO: TEXT COLOR */}
+      {/* TODO: HILIGHT COLOR */}
+      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      {/* TODO: LINK */}
+      {/* TODO: ALIGN */}
+      {/* TODO: IMAGE */}
+      {/* TODO: LINE HEIGHT */}
+      {/* TODO: LIST */}
+      {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
     </div>
